@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResumeAI - Professional Resume Maker</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#eef2f7;
+    color:#172033;
+}
+
+button,input,textarea{font-family:inherit}
+button{cursor:pointer}
+
+.topbar{
+    height:70px;
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+}
+
+.logo span{color:#2563eb}
+
+.top-actions{
+    display:flex;
+    gap:10px;
+}
+
+.top-actions button{
+    border:0;
+    padding:11px 17px;
+    border-radius:7px;
+    font-weight:bold;
+    color:#fff;
+    background:#172033;
+}
+
+.top-actions button:hover{background:#2563eb}
+
+.main{
+    width:95%;
+    max-width:1500px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:500px 1fr;
+    gap:30px;
+    padding:35px 0;
+}
+
+.heading{margin-bottom:20px}
+
+.heading small{
+    color:#2563eb;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.heading h1{
+    font-size:31px;
+    margin:7px 0;
+}
+
+.heading p{
+    color:#667085;
+    font-size:14px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #e3e7ee;
+    border-radius:12px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 4px 18px rgba(0,0,0,.04);
+}
+
+.card h2{
+    font-size:17px;
+    margin-bottom:18px;
+}
+
+.template-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.template-btn{
+    border:1px solid #d0d5dd;
+    background:#fff;
+    padding:15px;
+    border-radius:8px;
+    text-align:left;
+    font-weight:bold;
+}
+
+.template-btn small{
+    display:block;
+    color:#2563eb;
+    margin-bottom:5px;
+}
+
+.template-btn:hover,
+.template-btn.active{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.full{grid-column:1/3}
+
+label{
+    display:block;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input,textarea{
+    width:100%;
+    border:1px solid #d0d5dd;
+    border-radius:7px;
+    padding:12px;
+    outline:none;
+    font-size:13px;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+input:focus,
+textarea:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.08);
+}
+
+.ai-btn{
+    margin-top:10px;
+    border:0;
+    padding:10px 15px;
+    border-radius:7px;
+    background:#eff6ff;
+    color:#2563eb;
+    font-weight:bold;
+}
+
+.bottom{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+}
+
+.clear-btn,
+.preview-btn{
+    border:0;
+    padding:13px 18px;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+.clear-btn{
+    background:#fff;
+    border:1px solid #d0d5dd;
+}
+
+.preview-btn{
+    color:#fff;
+    background:#2563eb;
+}
+
+.preview-btn:hover{background:#1d4ed8}
+
+.preview-title{margin-bottom:15px}
+
+.preview-title small{
+    color:#2563eb;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.preview-title h2{margin-top:5px}
+
+.resume{
+    width:100%;
+    max-width:850px;
+    min-height:1100px;
+    margin:auto;
+    background:#fff;
+    box-shadow:0 15px 45px rgba(0,0,0,.12);
+    overflow:hidden;
+}
+
+.resume h1{margin:0}
+
+.resume h3{
+    font-size:11px;
+    letter-spacing:1.5px;
+}
+
+.resume p{
+    font-size:11px;
+    line-height:1.7;
+}
+
+.item{margin-bottom:17px}
+
+.item strong{font-size:12px}
+
+.item small{
+    color:#667085;
+    font-size:10px;
+}
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.skill{
+    display:inline-block;
+    padding:7px 10px;
+    border-radius:5px;
+    font-size:9px;
+    font-weight:bold;
+}
+
+/* TEMPLATE 1 */
+
+.t1{padding:55px}
+
+.t1-header{
+    display:grid;
+    grid-template-columns:85px 1fr auto;
+    gap:18px;
+    align-items:center;
+    padding-bottom:25px;
+    border-bottom:2px solid #172033;
+}
+
+.photo{
+    width:85px;
+    height:85px;
+    background:#edf1f5;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.t1-header h1{font-size:30px}
+
+.t1-header h2{
+    color:#2563eb;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.contact{
+    text-align:right;
+    color:#667085;
+    font-size:10px;
+    line-height:1.8;
+}
+
+.section{margin-top:28px}
+
+.section h3{
+    color:#2563eb;
+    border-bottom:1px solid #e4e7ec;
+    padding-bottom:8px;
+    margin-bottom:13px;
+}
+
+.t1 .skill{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+/* TEMPLATE 2 */
+
+.t2{
+    display:grid;
+    grid-template-columns:250px 1fr;
+}
+
+.t2-side{
+    background:#172033;
+    color:white;
+    padding:40px 25px;
+}
+
+.t2-side .photo{
+    width:115px;
+    height:115px;
+    border-radius:50%;
+    margin:0 auto 20px;
+}
+
+.t2-side h1{
+    text-align:center;
+    font-size:23px;
+}
+
+.t2-side h2{
+    text-align:center;
+    color:#93c5fd;
+    font-size:11px;
+    margin-top:7px;
+}
+
+.side-section{margin-top:32px}
+
+.side-section h3{
+    color:#93c5fd;
+    margin-bottom:12px;
+}
+
+.side-section p{
+    color:#d0d5dd;
+    margin-bottom:6px;
+}
+
+.t2 .skill{
+    display:block;
+    background:#263348;
+    color:white;
+    margin-bottom:6px;
+}
+
+.t2-main{padding:50px}
+
+.t2-main .section{
+    margin-top:0;
+    margin-bottom:30px;
+}
+
+.t2-main .section h3{
+    border-bottom:2px solid #2563eb;
+}
+
+/* TEMPLATE 3 */
+
+.t3{padding:70px}
+
+.t3-header{
+    border-bottom:2px solid #172033;
+    padding-bottom:25px;
+}
+
+.t3-header h1{font-size:39px}
+
+.t3-header h2{
+    color:#667085;
+    font-size:14px;
+    font-weight:normal;
+    margin-top:6px;
+}
+
+.t3 .contact{
+    text-align:left;
+    margin-top:14px;
+}
+
+.t3 .section{margin-top:30px}
+
+.t3 .section h3{
+    color:#172033;
+    border:0;
+}
+
+.t3 .skill{border:1px solid #172033}
+
+/* TEMPLATE 4 */
+
+.t4{
+    padding:35px;
+    background:#f4f6fa;
+}
+
+.t4-header{
+    background:#2563eb;
+    color:white;
+    padding:30px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.t4-header .photo{
+    width:95px;
+    height:95px;
+    border-radius:12px;
+    background:white;
+    flex-shrink:0;
+}
+
+.t4-header h1{font-size:30px}
+
+.t4-header h2{
+    font-size:13px;
+    margin-top:5px;
+}
+
+.t4 .contact{
+    background:white;
+    padding:12px;
+    margin-top:10px;
+    border-radius:8px;
+    text-align:center;
+}
+
+.t4-columns{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:12px;
+    margin-top:12px;
+}
+
+.t4 .section{
+    background:white;
+    padding:20px;
+    border-radius:9px;
+    margin-top:0;
+    margin-bottom:12px;
+}
+
+.t4 .section h3{
+    color:#2563eb;
+    margin-bottom:13px;
+}
+
+.t4 .skill{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+/* MOBILE */
+
+@media(max-width:1050px){
+    .main{grid-template-columns:1fr}
+}
+
+@media(max-width:650px){
+
+    .topbar{padding:0 15px}
+
+    .top-actions button{
+        padding:8px 10px;
+        font-size:11px;
+    }
+
+    .main{
+        width:94%;
+        padding-top:25px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{grid-column:auto}
+
+    .template-grid{
+        grid-template-columns:1fr;
+    }
+
+    .t1{padding:30px}
+
+    .t1-header{
+        grid-template-columns:70px 1fr;
+    }
+
+    .t1-header .contact{
+        grid-column:1/3;
+        text-align:left;
+    }
+
+    .t2{grid-template-columns:1fr}
+
+    .t2-main{padding:30px}
+
+    .t3{padding:30px}
+
+    .t4{padding:18px}
+
+    .t4-columns{
+        grid-template-columns:1fr;
+    }
+}
+
+/* PRINT */
+
+@media print{
+
+    body{background:#fff}
+
+    .topbar,
+    .editor,
+    .preview-title{
+        display:none!important;
+    }
+
+    .main{
+        display:block;
+        width:100%;
+        padding:0;
+    }
+
+    .resume{
+        box-shadow:none;
+        max-width:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="logo">
+        Resume<span>AI</span>
+    </div>
+
+    <div class="top-actions">
+        <button onclick="saveResume()">Save</button>
+        <button onclick="window.print()">Print / PDF</button>
+    </div>
+
+</header>
+
+
+<div class="main">
+
+<section class="editor">
+
+<div class="heading">
+    <small>AI RESUME BUILDER</small>
+    <h1>Create Your Professional Resume</h1>
+    <p>Build, customize and print your resume easily.</p>
+</div>
+
+
+<!-- TEMPLATES -->
+
+<div class="card">
+
+<h2>Choose Template</h2>
+
+<div class="template-grid">
+
+<button class="template-btn active" onclick="setTemplate(1,this)">
+    <small>01</small>
+    Corporate
+</button>
+
+<button class="template-btn" onclick="setTemplate(2,this)">
+    <small>02</small>
+    Modern
+</button>
+
+<button class="template-btn" onclick="setTemplate(3,this)">
+    <small>03</small>
+    Minimal
+</button>
+
+<button class="template-btn" onclick="setTemplate(4,this)">
+    <small>04</small>
+    Creative
+</button>
+
+</div>
+</div>
+
+
+<!-- PERSONAL INFORMATION -->
+
+<div class="card">
+
+<h2>Personal Information</h2>
+
+<div class="form-grid">
+
+<div>
+<label>Full Name</label>
+<input id="name" placeholder="Your Name">
+</div>
+
+<div>
+<label>Professional Title</label>
+<input id="title" placeholder="Software Developer">
+</div>
+
+<div>
+<label>Email</label>
+<input id="email" placeholder="@gmail.com">
+</div>
+
+<div>
+<label>Phone</label>
+<input id="phone" placeholder="+91 number">
+</div>
+
+<div class="full">
+<label>Full Address</label>
+<textarea id="address" placeholder="Enter your full address"></textarea>
+</div>
+
+<div class="full">
+<label>Profile Photo</label>
+<input id="photo" type="file" accept="image/*">
+</div>
+
+</div>
+</div>
+
+
+<!-- SUMMARY -->
+
+<div class="card">
+
+<h2>Professional Summary</h2>
+
+<textarea id="summary"
+placeholder="Write your professional summary..."></textarea>
+
+<button class="ai-btn" onclick="generateSummary()">
+✦ Generate Professional Summary
+</button>
+
+</div>
+
+
+<!-- EDUCATION -->
+
+<div class="card">
+
+<h2>Education</h2>
+
+<div class="form-grid">
+
+<div>
+<label>10th / SSLC School</label>
+<input id="school10" placeholder="ABC Higher Secondary School">
+</div>
+
+<div>
+<label>10th Percentage</label>
+<input id="mark10" placeholder="85%">
+</div>
+
+<div>
+<label>10th Year</label>
+<input id="year10" placeholder="2021">
+</div>
+
+
+<div>
+<label>12th / HSC School</label>
+<input id="school12" placeholder="ABC Higher Secondary School">
+</div>
+
+<div>
+<label>12th Percentage</label>
+<input id="mark12" placeholder="88%">
+</div>
+
+<div>
+<label>12th Year</label>
+<input id="year12" placeholder="2023">
+</div>
+
+
+<div>
+<label>UG Degree</label>
+<input id="ugDegree" placeholder="B.Sc Computer Science">
+</div>
+
+<div>
+<label>UG College / University</label>
+<input id="ugCollege" placeholder="ABC College">
+</div>
+
+<div>
+<label>UG CGPA / Percentage</label>
+<input id="ugGrade" placeholder="8.5 CGPA">
+</div>
+
+<div>
+<label>UG Year</label>
+<input id="ugYear" placeholder="2026">
+</div>
+
+
+<div>
+<label>PG Degree</label>
+<input id="pgDegree" placeholder="MCA">
+</div>
+
+<div>
+<label>PG College / University</label>
+<input id="pgCollege" placeholder="XYZ University">
+</div>
+
+<div>
+<label>PG CGPA / Percentage</label>
+<input id="pgGrade" placeholder="8.7 CGPA">
+</div>
+
+<div>
+<label>PG Year</label>
+<input id="pgYear" placeholder="2028">
+</div>
+
+</div>
+</div>
+
+
+<!-- EXPERIENCE -->
+
+<div class="card">
+
+<h2>Experience</h2>
+
+<div class="form-grid">
+
+<div>
+<label>Job / Internship</label>
+<input id="job" placeholder="Web Developer Intern">
+</div>
+
+<div>
+<label>Company</label>
+<input id="company" placeholder="ABC Technologies">
+</div>
+
+<div class="full">
+<label>Description</label>
+<textarea id="experience"
+placeholder="Describe your work or internship..."></textarea>
+</div>
+
+</div>
+</div>
+
+
+<!-- SKILLS -->
+
+<div class="card">
+
+<h2>Skills</h2>
+
+<label>Skills separated by commas</label>
+
+<input id="skills"
+placeholder="HTML, CSS, JavaScript, PHP, MySQL">
+
+</div>
+
+
+<!-- PROJECT -->
+
+<div class="card">
+
+<h2>Project</h2>
+
+<div class="form-grid">
+
+<div>
+<label>Project Name</label>
+<input id="project" placeholder="AI Resume Maker">
+</div>
+
+<div>
+<label>Technologies</label>
+<input id="technology" placeholder="HTML, CSS, JavaScript">
+</div>
+
+<div class="full">
+<label>Project Description</label>
+<textarea id="projectDescription"
+placeholder="Describe your project..."></textarea>
+</div>
+
+</div>
+</div>
+
+
+<div class="bottom">
+
+<button class="clear-btn" onclick="clearAll()">
+Clear
+</button>
+
+<button class="preview-btn" onclick="updateResume()">
+Update Preview
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PREVIEW -->
+
+<section>
+
+<div class="preview-title">
+<small>LIVE PREVIEW</small>
+<h2>Your Professional Resume</h2>
+</div>
+
+<div id="resume" class="resume t1"></div>
+
+</section>
+
+</div>
+
+
+<script>
+
+let currentTemplate = 1;
+let photoData = "";
+
+
+/* GET VALUE */
+
+function val(id){
+
+    const element = document.getElementById(id);
+
+    return element ? element.value.trim() : "";
+
+}
+
+
+/* SAFE TEXT */
+
+function safe(text){
+
+    return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* TEMPLATE */
+
+function setTemplate(number,button){
+
+    currentTemplate = number;
+
+    document.querySelectorAll(".template-btn")
+    .forEach(function(btn){
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    updateResume();
+
+}
+
+
+/* PHOTO */
+
+document.getElementById("photo")
+.addEventListener("change",function(){
+
+    const file = this.files[0];
+
+    if(!file) return;
+
+    if(!file.type.startsWith("image/")){
+
+        alert("Please select an image file.");
+
+        this.value = "";
+
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+
+        photoData = event.target.result;
+
+        updateResume();
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/* SKILLS */
+
+function skillsHTML(){
+
+    const text = val("skills");
+
+    if(!text){
+
+        return `
+        <span class="skill">HTML</span>
+        <span class="skill">CSS</span>
+        <span class="skill">JavaScript</span>
+        `;
+
+    }
+
+    return text.split(",")
+    .map(function(skill){
+
+        skill = skill.trim();
+
+        if(!skill) return "";
+
+        return `<span class="skill">${safe(skill)}</span>`;
+
+    })
+    .join("");
+
+}
+
+
+/* EDUCATION */
+
+function educationHTML(){
+
+    let html = "";
+
+
+    /* 10TH */
+
+    if(
+        val("school10") ||
+        val("mark10") ||
+        val("year10")
+    ){
+
+        html += `
+
+        <div class="item">
+
+            <strong>10th / SSLC</strong>
+
+            <br>
+
+            <small>
+                ${safe(val("school10") || "School")}
+            </small>
+
+            <br>
+
+            <small>
+                ${safe(val("year10"))}
+                ${val("mark10") ?
+                " • " + safe(val("mark10")) : ""}
+            </small>
+
+        </div>
+
+        `;
+
+    }
+
+
+    /* 12TH */
+
+    if(
+        val("school12") ||
+        val("mark12") ||
+        val("year12")
+    ){
+
+        html += `
+
+        <div class="item">
+
+            <strong>12th / HSC</strong>
+
+            <br>
+
+            <small>
+                ${safe(val("school12") || "School")}
+            </small>
+
+            <br>
+
+            <small>
+                ${safe(val("year12"))}
+                ${val("mark12") ?
+                " • " + safe(val("mark12")) : ""}
+            </small>
+
+        </div>
+
+        `;
+
+    }
+
+
+    /* UG */
+
+    if(
+        val("ugDegree") ||
+        val("ugCollege") ||
+        val("ugGrade") ||
+        val("ugYear")
+    ){
+
+        html += `
+
+        <div class="item">
+
+            <strong>
+                ${safe(val("ugDegree") || "UG Degree")}
+            </strong>
+
+            <br>
+
+            <small>
+                ${safe(val("ugCollege") || "College / University")}
+            </small>
+
+            <br>
+
+            <small>
+                ${safe(val("ugYear"))}
+                ${val("ugGrade") ?
+                " • " + safe(val("ugGrade")) : ""}
+            </small>
+
+        </div>
+
+        `;
+
+    }
+
+
+    /* PG */
+
+    if(
+        val("pgDegree") ||
+        val("pgCollege") ||
+        val("pgGrade") ||
+        val("pgYear")
+    ){
+
+        html += `
+
+        <div class="item">
+
+            <strong>
+                ${safe(val("pgDegree") || "PG Degree")}
+            </strong>
+
+            <br>
+
+            <small>
+                ${safe(val("pgCollege") || "College / University")}
+            </small>
+
+            <br>
+
+            <small>
+                ${safe(val("pgYear"))}
+                ${val("pgGrade") ?
+                " • " + safe(val("pgGrade")) : ""}
+            </small>
+
+        </div>
+
+        `;
+
+    }
+
+
+    if(!html){
+
+        html = `
+
+        <div class="item">
+
+            <strong>Education</strong>
+
+            <p>
+                Enter your education details.
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+
+    return html;
+
+}
+
+
+/* EXPERIENCE */
+
+function experienceHTML(){
+
+    if(
+        !val("job") &&
+        !val("company") &&
+        !val("experience")
+    ){
+
+        return `
+
+        <div class="item">
+
+            <strong>Add Experience</strong>
+
+            <p>
+                Enter your internship or work experience.
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+
+    return `
+
+    <div class="item">
+
+        <strong>
+            ${safe(val("job") || "Job / Internship")}
+        </strong>
+
+        <br>
+
+        <small>
+            ${safe(val("company") || "Company")}
+        </small>
+
+        <p>
+            ${safe(
+                val("experience") ||
+                "Describe your responsibilities and work."
+            )}
+        </p>
+
+    </div>
+
+    `;
+
+}
+
+
+/* PROJECT */
+
+function projectHTML(){
+
+    if(
+        !val("project") &&
+        !val("technology") &&
+        !val("projectDescription")
+    ){
+
+        return `
+
+        <div class="item">
+
+            <strong>Add Project</strong>
+
+            <p>
+                Enter your project information.
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+
+    return `
+
+    <div class="item">
+
+        <strong>
+            ${safe(val("project") || "Project Name")}
+        </strong>
+
+        <br>
+
+        <small>
+            ${safe(val("technology"))}
+        </small>
+
+        <p>
+            ${safe(
+                val("projectDescription") ||
+                "Project description."
+            )}
+        </p>
+
+    </div>
+
+    `;
+
+}
+
+
+/* PHOTO */
+
+function photoHTML(){
+
+    if(photoData){
+
+        return `<img src="${photoData}" alt="Profile Photo">`;
+
+    }
+
+    return "";
+
+}
+
+
+/* UPDATE */
+
+function updateResume(){
+
+    const resume = document.getElementById("resume");
+
+    if(currentTemplate === 1){
+
+        resume.className = "resume t1";
+        resume.innerHTML = templateOne();
+
+    }
+
+    else if(currentTemplate === 2){
+
+        resume.className = "resume t2";
+        resume.innerHTML = templateTwo();
+
+    }
+
+    else if(currentTemplate === 3){
+
+        resume.className = "resume t3";
+        resume.innerHTML = templateThree();
+
+    }
+
+    else if(currentTemplate === 4){
+
+        resume.className = "resume t4";
+        resume.innerHTML = templateFour();
+
+    }
+
+}
+
+
+/* TEMPLATE 1 */
+
+function templateOne(){
+
+return `
+
+<div class="t1-header">
+
+<div class="photo">
+${photoHTML()}
+</div>
+
+<div>
+
+<h1>
+${safe(val("name") || "Your Name")}
+</h1>
+
+<h2>
+${safe(val("title") || "Professional")}
+</h2>
+
+</div>
+
+<div class="contact">
+
+${safe(val("email") || "email@example.com")}<br>
+
+${safe(val("phone") || "+91 XXXXX XXXXX")}<br>
+
+${safe(val("location") || "India")}
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>PROFILE</h3>
+
+<p>
+${safe(
+val("summary") ||
+"Motivated professional seeking an opportunity to apply knowledge, develop skills and contribute effectively."
+)}
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h3>EDUCATION</h3>
+
+${educationHTML()}
+
+</div>
+
+
+<div class="section">
+
+<h3>EXPERIENCE</h3>
+
+${experienceHTML()}
+
+</div>
+
+
+<div class="section">
+
+<h3>SKILLS</h3>
+
+<div class="skills">
+${skillsHTML()}
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>PROJECT</h3>
+
+${projectHTML()}
+
+</div>
+
+`;
+
+}
+
+
+/* TEMPLATE 2 */
+
+function templateTwo(){
+
+return `
+
+<div class="t2-side">
+
+<div class="photo">
+${photoHTML()}
+</div>
+
+<h1>
+${safe(val("name") || "Your Name")}
+</h1>
+
+<h2>
+${safe(val("title") || "Professional")}
+</h2>
+
+
+<div class="side-section">
+
+<h3>CONTACT</h3>
+
+<p>${safe(val("email") || "email@example.com")}</p>
+
+<p>${safe(val("phone") || "+91 XXXXX XXXXX")}</p>
+
+<p>${safe(val("location") || "India")}</p>
+
+</div>
+
+
+<div class="side-section">
+
+<h3>SKILLS</h3>
+
+${skillsHTML()}
+
+</div>
+
+</div>
+
+
+<div class="t2-main">
+
+<div class="section">
+
+<h3>PROFILE</h3>
+
+<p>
+${safe(
+val("summary") ||
+"Motivated professional seeking an opportunity to grow and contribute."
+)}
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h3>EXPERIENCE</h3>
+
+${experienceHTML()}
+
+</div>
+
+
+<div class="section">
+
+<h3>EDUCATION</h3>
+
+${educationHTML()}
+
+</div>
+
+
+<div class="section">
+
+<h3>PROJECT</h3>
+
+${projectHTML()}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* TEMPLATE 3 */
+
+function templateThree(){
+
+return `
+
+<div class="t3-header">
+
+<h1>
+${safe(val("name") || "Your Name")}
+</h1>
+
+<h2>
+${safe(val("title") || "Professional")}
+</h2>
+
+<div class="contact">
+
+${safe(val("email") || "email@example.com")}
+&nbsp; | &nbsp;
+
+${safe(val("phone") || "+91 XXXXX XXXXX")}
+&nbsp; | &nbsp;
+
+${safe(val("location") || "India")}
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>PROFESSIONAL SUMMARY</h3>
+
+<p>
+${safe(
+val("summary") ||
+"Motivated professional ready to apply knowledge and develop new skills."
+)}
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h3>EDUCATION</h3>
+
+${educationHTML()}
+
+</div>
+
+
+<div class="section">
+
+<h3>EXPERIENCE</h3>
+
+${experienceHTML()}
+
+</div>
+
+
+<div class="section">
+
+<h3>TECHNICAL SKILLS</h3>
+
+<div class="skills">
+${skillsHTML()}
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>PROJECT</h3>
+
+${projectHTML()}
+
+</div>
+
+`;
+
+}
+
+
+/* TEMPLATE 4 */
+
+function templateFour(){
+
+return `
+
+<div class="t4-header">
+
+<div class="photo">
+${photoHTML()}
+</div>
+
+<div>
+
+<h1>
+${safe(val("name") || "Your Name")}
+</h1>
+
+<h2>
+${safe(val("title") || "Professional")}
+</h2>
+
+</div>
+
+</div>
+
+
+<div class="contact">
+
+${safe(val("email") || "email@example.com")}
+&nbsp; | &nbsp;
+
+${safe(val("phone") || "+91 XXXXX XXXXX")}
+&nbsp; | &nbsp;
+
+${safe(val("location") || "India")}
+
+</div>
+
+
+<div class="t4-columns">
+
+<div>
+
+<div class="section">
+
+<h3>ABOUT ME</h3>
+
+<p>
+${safe(
+val("summary") ||
+"Motivated professional looking to grow, learn and contribute effectively."
+)}
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h3>EXPERIENCE</h3>
+
+${experienceHTML()}
+
+</div>
+
+
+<div class="section">
+
+<h3>PROJECT</h3>
+
+${projectHTML()}
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="section">
+
+<h3>EDUCATION</h3>
+
+${educationHTML()}
+
+</div>
+
+
+<div class="section">
+
+<h3>SKILLS</h3>
+
+<div class="skills">
+${skillsHTML()}
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* AI SUMMARY */
+
+function generateSummary(){
+
+    const name = val("name") || "a motivated candidate";
+
+    const title = val("title") || "professional";
+
+    document.getElementById("summary").value =
+    "I am " + name +
+    ", a motivated " + title +
+    " with a strong interest in developing professional skills. " +
+    "I am eager to apply my knowledge, learn new technologies, " +
+    "work effectively with a team and contribute to organizational growth.";
+
+    updateResume();
+
+}
+
+
+/* SAVE */
+
+function saveResume(){
+
+    const data = {
+
+        name:val("name"),
+        title:val("title"),
+        email:val("email"),
+        phone:val("phone"),
+        location:val("location"),
+        summary:val("summary"),
+
+        school10:val("school10"),
+        mark10:val("mark10"),
+        year10:val("year10"),
+
+        school12:val("school12"),
+        mark12:val("mark12"),
+        year12:val("year12"),
+
+        ugDegree:val("ugDegree"),
+        ugCollege:val("ugCollege"),
+        ugGrade:val("ugGrade"),
+        ugYear:val("ugYear"),
+
+        pgDegree:val("pgDegree"),
+        pgCollege:val("pgCollege"),
+        pgGrade:val("pgGrade"),
+        pgYear:val("pgYear"),
+
+        job:val("job"),
+        company:val("company"),
+        experience:val("experience"),
+
+        skills:val("skills"),
+
+        project:val("project"),
+        technology:val("technology"),
+        projectDescription:val("projectDescription"),
+
+        template:currentTemplate,
+        photo:photoData
+
+    };
+
+    localStorage.setItem(
+        "professionalResume",
+        JSON.stringify(data)
+    );
+
+    alert("Resume saved successfully!");
+
+}
+
+
+/* LOAD */
+
+function loadResume(){
+
+    const saved =
+    localStorage.getItem("professionalResume");
+
+    if(!saved)return;
+
+    try{
+
+        const data = JSON.parse(saved);
+
+        const fields = [
+
+            "name",
+            "title",
+            "email",
+            "phone",
+            "location",
+            "summary",
+
+            "school10",
+            "mark10",
+            "year10",
+
+            "school12",
+            "mark12",
+            "year12",
+
+            "ugDegree",
+            "ugCollege",
+            "ugGrade",
+            "ugYear",
+
+            "pgDegree",
+            "pgCollege",
+            "pgGrade",
+            "pgYear",
+
+            "job",
+            "company",
+            "experience",
+
+            "skills",
+
+            "project",
+            "technology",
+            "projectDescription"
+
+        ];
+
+        fields.forEach(function(id){
+
+            const element =
+            document.getElementById(id);
+
+            if(element && data[id] !== undefined){
+
+                element.value = data[id];
+
+            }
+
+        });
+
+
+        if(data.photo){
+
+            photoData = data.photo;
+
+        }
+
+
+        if(
+            data.template >= 1 &&
+            data.template <= 4
+        ){
+
+            currentTemplate = data.template;
+
+            document.querySelectorAll(".template-btn")
+            .forEach(function(button,index){
+
+                button.classList.remove("active");
+
+                if(index === currentTemplate - 1){
+
+                    button.classList.add("active");
+
+                }
+
+            });
+
+        }
+
+    }catch(error){
+
+        console.log("Saved data could not be loaded.");
+
+    }
+
+}
+
+
+/* CLEAR */
+
+function clearAll(){
+
+    if(!confirm("Clear all resume information?")){
+
+        return;
+
+    }
+
+    document.querySelectorAll(
+        "input:not(#photo), textarea"
+    ).forEach(function(element){
+
+        element.value = "";
+
+    });
+
+
+    document.getElementById("photo").value = "";
+
+    photoData = "";
+
+    currentTemplate = 1;
+
+
+    document.querySelectorAll(".template-btn")
+    .forEach(function(button,index){
+
+        button.classList.remove("active");
+
+        if(index === 0){
+
+            button.classList.add("active");
+
+        }
+
+    });
+
+
+    localStorage.removeItem(
+        "professionalResume"
+    );
+
+
+    updateResume();
+
+}
+
+
+/* LIVE UPDATE */
+
+document.querySelectorAll(
+    "input:not(#photo), textarea"
+)
+.forEach(function(element){
+
+    element.addEventListener(
+        "input",
+        updateResume
+    );
+
+});
+
+
+/* START */
+
+loadResume();
+
+updateResume();
+
+</script>
+
+</body>
+</html>
